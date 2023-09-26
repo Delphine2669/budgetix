@@ -14,9 +14,9 @@ const browse = (req, res) => {
 
 const add = (req, res) => {
   const user = {
-    name: req.body.name,
+    username: req.body.username,
     email: req.body.email,
-    password: req.body.password,
+    hashedPassword: req.body.hashedPassword,
   };
   models.user
     .insert(user)
@@ -76,10 +76,10 @@ const destroy = (req, res) => {
       res.sendStatus(500);
     });
 };
-getUserIncome = async (req, res) => {
+const getUserIncome = async (req, res) => {
   try {
     const { user_id } = req.params;
-    const user = await UserManager.getUserById(user_id);
+    const user = await UserManager.findById(user_id);
     const incomes = await IncomeManager.getIncomesByUserId(user_id);
 
     const responseData = {
@@ -94,4 +94,4 @@ getUserIncome = async (req, res) => {
   }
 };
 
-module.exports = { browse, read, add, edit, destroy };
+module.exports = { browse, read, add, edit, destroy, getUserIncome };

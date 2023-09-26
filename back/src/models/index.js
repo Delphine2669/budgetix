@@ -3,6 +3,7 @@ require("dotenv").config();
 const mysql = require("mysql2/promise");
 const UserManager = require("./UserManager");
 const IncomeManager = require("./IncomeManager");
+const ExpenseManager = require("./ExpenseManager");
 
 const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
 
@@ -32,6 +33,8 @@ models.user = new UserManager();
 models.user.setDatabase(database);
 models.income = new IncomeManager();
 models.income.setDatabase(database);
+models.expense = new ExpenseManager();
+models.expense.setDatabase(database);
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 

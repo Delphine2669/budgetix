@@ -19,21 +19,10 @@ const add = (req, res) => {
     date: req.body.date,
     user_id: req.body.user_id,
   };
-  models.user
-    .findById(income.user_id)
-    .then((user) => {
-      if (!user) {
-        return res.status(400).send("Invalid user_id");
-      }
-      models.income
-        .insert(income)
-        .then(([result]) => {
-          res.location(`/incomes/${result.insertId}`).sendStatus(204);
-        })
-        .catch((err) => {
-          console.error(err);
-          res.status(500).send("error saving data from database");
-        });
+  models.income
+    .insert(income)
+    .then(([result]) => {
+      res.location(`/incomes/${result.insertId}`).sendStatus(204);
     })
     .catch((err) => {
       console.error(err);
@@ -44,12 +33,12 @@ const add = (req, res) => {
 const read = (req, res) => {
   const incomeId = parseInt(req.params.id, 10);
   models.income
-    .findByIdWithUser(incomeId)
-    .then(([incomeWithUser]) => {
-      if (!incomeWithUser) {
+    .find(incomeId)
+    .then(([rows]) => {
+      if (rows[0] == null) {
         res.sendStatus(404);
       } else {
-        res.send(incomeWithUser);
+        res.send(rows[0]);
       }
     })
     .catch((err) => {
@@ -61,32 +50,22 @@ const read = (req, res) => {
 const edit = (req, res) => {
   const incomeId = parseInt(req.params.id, 10);
   const incomeData = req.body;
-  models.user
-    .findById(incomeData.user_id)
-    .then((user) => {
-      if (!user) {
-        return res.status(400).send("Invalid user_id");
-      }
 
-      models.income
-        .update(incomeData, incomeId)
-        .then(([result]) => {
-          if (result.affectedRows === 0) {
-            res.sendStatus(404);
-          } else {
-            res.sendStatus(204);
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-          res.status(500).send("error editing data");
-        });
+  models.income
+    .update(incomeData, incomeId)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(204);
+      }
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error retrieving income data");
+      res.status(500).send("error editing data");
     });
 };
+
 const destroy = (req, res) => {
   const incomeId = parseInt(req.params.id, 10);
   models.income
@@ -103,36 +82,16 @@ const destroy = (req, res) => {
       res.sendStatus(500);
     });
 };
-const readWithUser = async (req, res) => {
-  const incomeId = parseInt(req.params.id, 10);
-  try {
-    // Use the findByIdWithUser method from your IncomeManager to fetch income data with user information
-    const [incomeWithUser] = await incomeManager.findByIdWithUser(incomeId);
+const getIncomesByUserId = (req, res) => {
+  const userId = req.params.id; // Assuming the user_id is passed as a route parameter
 
-    if (!incomeWithUser) {
-      return res.sendStatus(404); // Return a 404 response if the record is not found
+  IncomeManager.getIncomesByUserId(userId, (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: "Internal Server Error" });
     }
-    const userId = incomeWithUser.user_id;
-    const responseData = {
-      income: incomeWithUser,
-      userId: userId,
-    };
-    res.json(responseData);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Error retrieving income data with user information");
-  }
-};
 
-const getIncomesByUserId = async (req, res) => {
-  const user_id = req.params.user_id;
-  try {
-    const incomes = await IncomeManager.getAllIncomesByUserId(user_id);
-    res.json(incomes);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-  }
+    res.status(200).json(results);
+  });
 };
 module.exports = {
   browse,
@@ -141,5 +100,4 @@ module.exports = {
   edit,
   destroy,
   getIncomesByUserId,
-  readWithUser,
 };
