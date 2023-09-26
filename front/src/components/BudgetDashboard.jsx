@@ -1,14 +1,23 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import "./List.css";
-import "./Form.css";
+import "./BudgetDashboard.css";
 
-const BudgetDashboard ({ transactions, onAddTransaction })  {
+function BudgetDashboard({ transactions, onAddTransaction }) {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("expense");
   const [date, setDate] = useState("");
   const [showForm, setShowForm] = useState(false);
+
+  function getBalanceColorClass(balance) {
+    if (balance > 50) {
+      return "green-balance";
+    } else if (balance >= 0) {
+      return "orange-balance";
+    } else {
+      return "red-balance";
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,33 +37,26 @@ const BudgetDashboard ({ transactions, onAddTransaction })  {
     setDate("");
     setShowForm(false);
   };
+  const totalIncome = transactions
+    .filter((transaction) => transaction.type === "income")
+    .reduce((acc, transaction) => acc + transaction.amount, 0);
+
+  const totalExpenses = transactions
+    .filter((transaction) => transaction.type === "expense")
+    .reduce((acc, transaction) => acc + transaction.amount, 0);
+
+  const balance = totalIncome - totalExpenses;
 
   return (
     <div>
-      <h2>Transaction List</h2>
-      <ul>
-        {transactions.map((transaction, index) => (
-          <li key={index} className="li-transaction">
-            <div
-              className={`"li-desc ${
-                transaction.type === "income" ? "income-text" : "expense-text"
-              }`}
-            >
-              {transaction.description}
-            </div>
-            |
-            <div
-              className={`"li-amount ${
-                transaction.type === "income" ? "income-text" : "expense-text"
-              }`}
-            >
-              {transaction.amount}€
-            </div>
-            <div className="li-date">{transaction.date}</div>
-          </li>
-        ))}
-      </ul>
-
+      <div className="balance-container">
+        <h3>Balance:</h3>
+        <div className="balance-box">
+          <h2 className={`h2-balance ${getBalanceColorClass(balance)}`}>
+            {balance} €
+          </h2>
+        </div>
+      </div>
       <div className="form-component-box">
         <button
           className={`"adding-button ${
@@ -108,11 +110,35 @@ const BudgetDashboard ({ transactions, onAddTransaction })  {
           </form>
         )}
       </div>
+      <h3>Transaction List</h3>
+      <ul>
+        {transactions &&
+          transactions.map((transaction, index) => (
+            <li key={index} className="li-transaction">
+              <div
+                className={`"li-desc ${
+                  transaction.type === "income" ? "income-text" : "expense-text"
+                }`}
+              >
+                {transaction.description}
+              </div>
+              |
+              <div
+                className={`"li-amount ${
+                  transaction.type === "income" ? "income-text" : "expense-text"
+                }`}
+              >
+                {transaction.amount}€
+              </div>
+              <div className="li-date">{transaction.date}</div>
+            </li>
+          ))}
+      </ul>
     </div>
   );
-};
+}
 
-BudgetApp.propTypes = {
+BudgetDashboard.propTypes = {
   transactions: PropTypes.array,
   onAddTransaction: PropTypes.func,
 };

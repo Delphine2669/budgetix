@@ -1,5 +1,5 @@
 import toastr from "toastr";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { useState } from "react";
 toastr.options = {
   closeButton: false,
@@ -60,6 +60,9 @@ const Login = () => {
   return (
     <div>
       <h2>Login</h2>
+      <div>
+        <NavLink to="/register">No account yet? Sign up here</NavLink>
+      </div>
       <form>
         <div>
           <label>Username:</label>

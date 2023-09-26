@@ -21,10 +21,8 @@ const BudgetForm = ({ onAddTransaction }) => {
       //   category,
     };
 
-    // Pass the transaction object to the parent component
     onAddTransaction(transaction);
 
-    // Clear form fields after submission
     setDescription("");
     setAmount("");
     setType("income");

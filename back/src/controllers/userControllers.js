@@ -76,22 +76,4 @@ const destroy = (req, res) => {
       res.sendStatus(500);
     });
 };
-const getUserIncome = async (req, res) => {
-  try {
-    const { user_id } = req.params;
-    const user = await UserManager.findById(user_id);
-    const incomes = await IncomeManager.getIncomesByUserId(user_id);
-
-    const responseData = {
-      user,
-      incomes,
-    };
-
-    res.json(responseData);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-};
-
-module.exports = { browse, read, add, edit, destroy, getUserIncome };
+module.exports = { browse, read, add, edit, destroy };

@@ -24,11 +24,6 @@ class UserManager extends AbstractManager {
       [user.username]
     );
   }
-  findById(user_id) {
-    return this.database.query(`SELECT * FROM ${this.table} WHERE id = ?`, [
-      user_id,
-    ]);
-  }
 }
 
 module.exports = UserManager;

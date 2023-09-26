@@ -82,22 +82,11 @@ const destroy = (req, res) => {
       res.sendStatus(500);
     });
 };
-const getIncomesByUserId = (req, res) => {
-  const userId = req.params.id; // Assuming the user_id is passed as a route parameter
 
-  IncomeManager.getIncomesByUserId(userId, (err, results) => {
-    if (err) {
-      return res.status(500).json({ error: "Internal Server Error" });
-    }
-
-    res.status(200).json(results);
-  });
-};
 module.exports = {
   browse,
   read,
   add,
   edit,
   destroy,
-  getIncomesByUserId,
 };

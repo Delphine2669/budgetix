@@ -1,0 +1,118 @@
+.adding-button {
+  border-radius: 50%;
+  width: 1.5dvw;
+  place-items: center;
+}
+.red-button {
+  background-color: rgb(208, 29, 29);
+  color: rgb(244, 235, 235);
+  font-weight: 800;
+}
+.green-button {
+  background-color: rgb(41, 174, 15);
+  color: rgb(18, 2, 2);
+  font-weight: 800;
+}
+.green-balance {
+  color: green;
+  border-radius: 15px;
+  border: 0.4dvw solid green;
+}
+
+.orange-balance {
+  color: orange;
+  border-radius: 15px;
+  border: 0.4dvw solid orange;
+}
+
+.red-balance {
+  background-color: red;
+  border-radius: 15px;
+  border: 0.4dvw solid red;
+}
+.green-balance,
+.red-balance,
+.orange-balance {
+  width: 20dvw;
+  margin: auto;
+  height: 6dvh;
+  place-self: center;
+  padding: 3dvh 0dvw;
+}
+
+.balance-container {
+  padding: 5dvw;
+}
+.li-transaction {
+  display: flex;
+  font-size: 2rem;
+  justify-content: center;
+}
+
+.income-text {
+  color: green;
+}
+.expense-text {
+  color: red;
+}
+.form-container {
+  max-width: 80dvw;
+  margin: auto;
+}
+input,
+label {
+  margin: 2dvw;
+  padding: 0.5dvw;
+}
+
+.button-submit {
+  margin: 2dvw;
+}
+
+@media screen and(min-width:600px) {
+  .li-transaction {
+    font-size: 7rem;
+  }
+}
+@media (prefers-color-scheme: light) {
+  .orange-balance {
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 0.2px,
+      orange 1px,
+      orange 1px
+    );
+    border-radius: 15px;
+    border: 0.4dvw solid black;
+    color: black;
+  }
+  .green-balance {
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 0.2px,
+      green 1px,
+      green 1px
+    );
+    border-radius: 15px;
+    border: 0.4dvw solid black;
+    color: black;
+  }
+  .red-balance {
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 0.2px,
+      red 1px,
+      red 1px
+    );
+    border-radius: 15px;
+    border: 0.4dvw solid black;
+    color: black;
+  }
+  .button-submit {
+    border-color: black;
+    border-width: 2px;
+  }
+}

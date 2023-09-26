@@ -24,10 +24,5 @@ class IncomeManager extends AbstractManager {
       ]
     );
   }
-  getIncomesByUserId(income) {
-    return this.database.query("SELECT * FROM income WHERE user_id = ?", [
-      userId,
-    ]);
-  }
 }
 module.exports = IncomeManager;

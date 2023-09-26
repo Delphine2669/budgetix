@@ -4,6 +4,7 @@ import TransactionList from "../components/List";
 import "../App.css";
 import Login from "./Login";
 import Register from "./register";
+import BudgetDashboard from "../components/BudgetDashboard";
 
 function Home() {
   const [transactions, setTransactions] = useState([]);
@@ -13,11 +14,14 @@ function Home() {
 
   return (
     <>
-      <h1 className="title">Budget App</h1>
-      <Form onAddTransaction={handleAddTransaction} />
-      <TransactionList transactions={transactions} />
-      <Login />
-      <Register />
+      <BudgetDashboard
+        onAddTransaction={handleAddTransaction}
+        transactions={transactions}
+      />
+      {/* <Form onAddTransaction={handleAddTransaction} />
+      <TransactionList transactions={transactions} /> */}
+      {/* <Login />
+      <Register /> */}
     </>
   );
 }
