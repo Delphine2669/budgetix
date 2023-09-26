@@ -1,6 +1,7 @@
 .nav-home-link,
 .nav-login-link {
   padding: 2dvw;
+  font-size: larger;
 }
 ul {
   list-style: none;
@@ -8,4 +9,15 @@ ul {
 .nav-container {
   display: flex;
   justify-content: center;
+}
+.logo-budgetix {
+  width: 16dvw;
+}
+.header {
+  display: flex;
+  max-width: 80dvw;
+}
+.title {
+  color: #eeefd3;
+  margin: auto;
 }
