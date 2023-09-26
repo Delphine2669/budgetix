@@ -17,7 +17,6 @@ const add = (req, res) => {
     amount: req.body.amount,
     description: req.body.description,
     date: req.body.date,
-    user_id: req.body.user_id,
   };
   models.expense
     .insert(expense)

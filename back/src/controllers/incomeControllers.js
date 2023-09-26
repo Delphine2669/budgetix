@@ -1,5 +1,4 @@
 const models = require("../models");
-const IncomeManager = require("../models/IncomeManager");
 const browse = (req, res) => {
   models.income
     .findAll()
@@ -17,7 +16,6 @@ const add = (req, res) => {
     amount: req.body.amount,
     description: req.body.description,
     date: req.body.date,
-    user_id: req.body.user_id,
   };
   models.income
     .insert(income)

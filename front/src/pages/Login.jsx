@@ -34,6 +34,32 @@ const Login = ({ setIsAuthenticated }) => {
     setPassword(e.target.value);
   };
 
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   const user = { username, password };
+  //   try {
+  //     const res = await fetch(
+  //       `${import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001"}/login`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(user),
+  //       }
+  //     );
+  //     if (res.ok) {
+  //       toastr.success("Successfully logged in");
+  //       setIsAuthenticated(true);
+  //       navigate("/");
+  //     } else {
+  //       toastr.error("Failed to login, check your credentials");
+  //       console.error("Login failed");
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   const handleLogin = async (e) => {
     e.preventDefault();
     const user = { username, password };
@@ -53,13 +79,15 @@ const Login = ({ setIsAuthenticated }) => {
         setIsAuthenticated(true);
         navigate("/");
       } else {
-        toastr.error("Failed to login, check your credentials");
-        console.error("Login failed");
+        const errorMessage = await res.text(); // Get the error message from the response body
+        toastr.error(`Failed to login: ${errorMessage}`);
+        console.error(`Login failed: ${errorMessage}`);
       }
     } catch (error) {
-      console.error(error);
+      console.error("An error occurred during login:", error);
     }
   };
+
   return (
     <div>
       <h2>Login</h2>
@@ -93,6 +121,6 @@ const Login = ({ setIsAuthenticated }) => {
   );
 };
 Login.propTypes = {
-  setIsAuthenticated: PropTypes.bool,
+  setIsAuthenticated: PropTypes.func.isRequired,
 };
 export default Login;

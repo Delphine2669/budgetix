@@ -12,6 +12,7 @@ ul {
 }
 .logo-budgetix {
   width: 16dvw;
+  background-image: url(${logo});
 }
 .header {
   display: flex;
@@ -20,4 +21,12 @@ ul {
 .title {
   color: #eeefd3;
   margin: auto;
+}
+@media (prefers-color-scheme: light) {
+  .title {
+    color: #63ab57;
+  }
+  .logo-budgetix {
+    background-image: url(${logoLight});
+  }
 }

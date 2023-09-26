@@ -77,18 +77,5 @@ const destroy = (req, res) => {
       res.sendStatus(500);
     });
 };
-const getUserIncomes = (req, res) => {
-  const userId = req.params.id; // Get the user ID from the request parameters
 
-  userManager
-    .getUserIncomes(userId)
-    .then((incomes) => {
-      res.json(incomes);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error fetching user incomes");
-    });
-};
-
-module.exports = { browse, read, add, edit, destroy, getUserIncomes };
+module.exports = { browse, read, add, edit, destroy };

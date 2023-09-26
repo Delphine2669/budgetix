@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./BudgetDashboard.css";
-import axios from "axios";
+// import axios from "axios";
 
-function BudgetDashboard({ onAddTransaction }) {
+function Budget(onAddTransaction) {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("expense");
@@ -20,24 +20,6 @@ function BudgetDashboard({ onAddTransaction }) {
       return "red-balance";
     }
   }
-
-  useEffect(() => {
-    const apiUrl = `${
-      import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001"
-    }/incomes`;
-
-    axios
-      .get(apiUrl)
-      .then((response) => {
-        const fetchedTransactions = response.data.transactions;
-
-        setTransactions(fetchedTransactions);
-      })
-      .catch((error) => {
-        console.error("Error fetching transactions:", error);
-      });
-  }, []);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -56,7 +38,6 @@ function BudgetDashboard({ onAddTransaction }) {
     setDate("");
     setShowForm(false);
   };
-
   const totalIncome = transactions
     ? transactions
         .filter((transaction) => transaction.type === "income")
@@ -70,6 +51,55 @@ function BudgetDashboard({ onAddTransaction }) {
     : 0;
 
   const balance = totalIncome - totalExpenses;
+
+  useEffect(() => {
+    // Replace these URLs with the endpoints for incomes and expenses
+    const incomesUrl = `${
+      import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001"
+    }/incomes`;
+    const expensesUrl = `${
+      import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001"
+    }/expenses`;
+
+    // Fetch data from the incomes endpoint
+    fetch(incomesUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((incomeData) => {
+        // Fetch data from the expenses endpoint
+        fetch(expensesUrl)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((expenseData) => {
+            const combinedData = [
+              ...incomeData.map((item) => ({ ...item, type: "income" })),
+              ...expenseData.map((item) => ({ ...item, type: "expense" })),
+            ];
+
+            combinedData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            setTransactions(combinedData);
+          })
+          .catch((error) => {
+            console.error("Error fetching expense data:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error fetching income data:", error);
+      });
+  }, []);
+  const formatDate = (dateString) => {
+    const dateObject = new Date(dateString);
+    return dateObject.toLocaleDateString();
+  };
 
   return (
     <div>
@@ -133,12 +163,10 @@ function BudgetDashboard({ onAddTransaction }) {
             </div>
           </form>
         )}
-      </div>
-      <h3>Transaction List</h3>
-      <ul>
-        {transactions &&
-          transactions.map((transaction, index) => (
-            <li key={index} className="li-transaction">
+        <h3>transactions</h3>
+        <ul>
+          {transactions.map((transaction) => (
+            <li key={transaction.id} className="li-transaction">
               <div
                 className={`"li-desc ${
                   transaction.type === "income" ? "income-text" : "expense-text"
@@ -146,25 +174,26 @@ function BudgetDashboard({ onAddTransaction }) {
               >
                 {transaction.description}
               </div>
-              |
               <div
                 className={`"li-amount ${
                   transaction.type === "income" ? "income-text" : "expense-text"
                 }`}
               >
-                {transaction.amount}€
+                | Amount: {transaction.amount}€{" "}
               </div>
-              <div className="li-date">{transaction.date}</div>
+              <div className="li-date">
+                | Date: {formatDate(transaction.date)}
+              </div>
             </li>
           ))}
-      </ul>
+        </ul>
+      </div>
     </div>
   );
 }
-
-BudgetDashboard.propTypes = {
+Budget.propTypes = {
   transactions: PropTypes.array,
   onAddTransaction: PropTypes.func,
 };
 
-export default BudgetDashboard;
+export default Budget;

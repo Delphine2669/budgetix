@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const mysql = require("mysql2/promise");
+
 const UserManager = require("./UserManager");
 const IncomeManager = require("./IncomeManager");
 const ExpenseManager = require("./ExpenseManager");

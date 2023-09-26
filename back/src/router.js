@@ -1,4 +1,5 @@
 const express = require("express");
+
 const fs = require("fs");
 const router = express.Router();
 const cookieParser = require("cookie-parser");
@@ -81,8 +82,5 @@ router.get("/logout", (req, res) => {
   res.clearCookie("user");
   res.redirect("/");
 });
-
-// todo fix this if need be
-router.get("/users/:id/incomes", userControllers.getUserIncomes);
 
 module.exports = router;

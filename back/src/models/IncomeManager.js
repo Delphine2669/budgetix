@@ -7,21 +7,15 @@ class IncomeManager extends AbstractManager {
 
   insert(income) {
     return this.database.query(
-      `INSERT INTO ${this.table} (amount,description,date, user_id) VALUES(?,?,?,?)`,
-      [income.amount, income.description, income.date, income.user_id]
+      `INSERT INTO ${this.table} (amount,description,date) VALUES(?,?,?)`,
+      [income.amount, income.description, income.date]
     );
   }
 
   update(income) {
     return this.database.query(
-      `UPDATE ${this.table} SET amount=?, description=?, date=?, user_id=? WHERE id=?`,
-      [
-        income.amount,
-        income.description,
-        income.date,
-        income.user_id,
-        income.id,
-      ]
+      `UPDATE ${this.table} SET amount=?, description=?, date=?WHERE id=?`,
+      [income.amount, income.description, income.date, income.id]
     );
   }
 }
