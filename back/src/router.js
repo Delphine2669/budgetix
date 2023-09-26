@@ -41,7 +41,7 @@ router.post(
   verifyPassword
 );
 // todo fix this if need be
-// router.get("/users/:id/incomes", incomeControllers.getIncomesByUserId);
+router.get("/users/:id/incomes", userControllers.getUserIncomes);
 // router.get("/users/:userId/incomes/:incomeId", incomeControllers.readWithUser);
 
 module.exports = router;

@@ -2,3 +2,6 @@
 .nav-login-link {
   padding: 2dvw;
 }
+ul {
+  list-style: none;
+}

@@ -1,9 +1,10 @@
 import { useState } from "react";
-import Form from "../components/Form";
-import TransactionList from "../components/List";
+
+// import Form from "../components/Form";
+// import TransactionList from "../components/List";
 import "../App.css";
-import Login from "./Login";
-import Register from "./register";
+// import Login from "./Login";
+// import Register from "./register";
 import BudgetDashboard from "../components/BudgetDashboard";
 
 function Home() {
