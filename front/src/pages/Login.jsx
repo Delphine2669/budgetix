@@ -1,4 +1,5 @@
 import toastr from "toastr";
+import PropTypes from "prop-types";
 import { useNavigate, NavLink } from "react-router-dom";
 import { useState } from "react";
 toastr.options = {
@@ -19,9 +20,10 @@ toastr.options = {
   hideMethod: "fadeOut",
 };
 
-const Login = () => {
+const Login = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
   const handleUsernameChange = (e) => {
@@ -48,6 +50,7 @@ const Login = () => {
       );
       if (res.ok) {
         toastr.success("Successfully logged in");
+        setIsAuthenticated(true);
         navigate("/");
       } else {
         toastr.error("Failed to login, check your credentials");
@@ -89,5 +92,7 @@ const Login = () => {
     </div>
   );
 };
-
+Login.propTypes = {
+  setIsAuthenticated: PropTypes.bool,
+};
 export default Login;

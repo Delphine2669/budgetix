@@ -5,3 +5,7 @@
 ul {
   list-style: none;
 }
+.nav-container {
+  display: flex;
+  justify-content: center;
+}

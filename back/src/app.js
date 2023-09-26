@@ -1,7 +1,7 @@
 // import some node modules for later
 const fs = require("node:fs");
 const path = require("node:path");
-// create express appc
+const cookieParser = require("cookie-parser");
 
 const express = require("express");
 
@@ -10,7 +10,7 @@ const app = express();
 // use some application-level middlewares
 
 app.use(express.json());
-
+app.use(cookieParser());
 const cors = require("cors");
 
 app.use(

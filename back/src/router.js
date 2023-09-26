@@ -1,7 +1,8 @@
 const express = require("express");
 const fs = require("fs");
 const router = express.Router();
-
+const cookieParser = require("cookie-parser");
+router.use(cookieParser());
 const {
   hashPassword,
   verifyPassword,
@@ -35,13 +36,53 @@ router.delete("/expenses/:id", expenseControllers.destroy);
 
 //*register and login
 router.post("/users", hashPassword, checkingUser, userControllers.add);
+// router.post(
+//   "/login",
+//   authControllers.getUserByUsernameWithPasswordAndPassToNext,
+//   verifyPassword
+// );
 router.post(
   "/login",
   authControllers.getUserByUsernameWithPasswordAndPassToNext,
-  verifyPassword
+  verifyPassword,
+  async (req, res) => {
+    try {
+      const user =
+        await authControllers.getUserByUsernameWithPasswordAndPassToNext(
+          req.body.username,
+          req.body.password
+        );
+
+      if (user) {
+        res.cookie("user", "authenticatedUser", {
+          maxAge: 900000,
+          httpOnly: true,
+        });
+        res.status(200).json({ message: "Login successful", user });
+      } else {
+        res.status(401).json({ message: "Authentication failed" });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
 );
+
+router.get("/protected", (req, res) => {
+  if (req.cookies.user === "authenticatedUser") {
+    res.status(200).json({ message: "Welcome to the protected route!" });
+  } else {
+    res.status(401).json({ message: "Unauthorized" });
+  }
+});
+
+router.get("/logout", (req, res) => {
+  res.clearCookie("user");
+  res.redirect("/");
+});
+
 // todo fix this if need be
 router.get("/users/:id/incomes", userControllers.getUserIncomes);
-// router.get("/users/:userId/incomes/:incomeId", incomeControllers.readWithUser);
 
 module.exports = router;
