@@ -1,0 +1,23 @@
+.form-container {
+  max-width: 80dvw;
+}
+input,
+label {
+  margin: 2dvw;
+  padding: 0.5dvw;
+}
+
+.button-submit {
+  margin: 2dvw;
+}
+.adding-button {
+  border-radius: 50%;
+  width: 2dvw;
+  place-items: center;
+}
+.red-button {
+  background-color: rgb(208, 29, 29);
+}
+.green-button {
+  background-color: rgb(41, 174, 15);
+}
