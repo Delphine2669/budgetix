@@ -26,7 +26,7 @@
 }
 
 .red-balance {
-  background-color: red;
+  color: red;
   border-radius: 15px;
   border: 0.4dvw solid red;
 }
@@ -47,16 +47,37 @@
   display: flex;
   font-size: 2rem;
   justify-content: center;
+  padding-bottom: 1dvh;
+  height: 12dvh;
 }
-
+.li-date {
+  padding-right: 2dvw;
+}
 .income-text {
   color: green;
 }
 .expense-text {
   color: red;
 }
+.td-amount {
+  margin-left: -10dvw;
+}
+
+.tr-header-budget {
+  padding-bottom: 4dvh;
+  font-size: x-large;
+  display: flex;
+  justify-content: space-evenly;
+}
 .form-container {
   max-width: 80dvw;
+  margin: auto;
+}
+.delete-button {
+  line-height: 1;
+  height: 4.8dvh;
+}
+.table-budget {
   margin: auto;
 }
 input,
@@ -68,7 +89,11 @@ label {
 .button-submit {
   margin: 2dvw;
 }
-
+.li-amount,
+.income-text,
+.expense-text {
+  padding-right: 5dvw;
+}
 @media screen and(min-width:600px) {
   .li-transaction {
     font-size: 7rem;

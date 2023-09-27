@@ -34,32 +34,6 @@ const Login = ({ setIsAuthenticated }) => {
     setPassword(e.target.value);
   };
 
-  // const handleLogin = async (e) => {
-  //   e.preventDefault();
-  //   const user = { username, password };
-  //   try {
-  //     const res = await fetch(
-  //       `${import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001"}/login`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(user),
-  //       }
-  //     );
-  //     if (res.ok) {
-  //       toastr.success("Successfully logged in");
-  //       setIsAuthenticated(true);
-  //       navigate("/");
-  //     } else {
-  //       toastr.error("Failed to login, check your credentials");
-  //       console.error("Login failed");
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
   const handleLogin = async (e) => {
     e.preventDefault();
     const user = { username, password };
@@ -79,7 +53,7 @@ const Login = ({ setIsAuthenticated }) => {
         setIsAuthenticated(true);
         navigate("/");
       } else {
-        const errorMessage = await res.text(); // Get the error message from the response body
+        const errorMessage = await res.text();
         toastr.error(`Failed to login: ${errorMessage}`);
         console.error(`Login failed: ${errorMessage}`);
       }

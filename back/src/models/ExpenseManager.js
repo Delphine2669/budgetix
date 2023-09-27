@@ -7,7 +7,7 @@ class ExpenseManager extends AbstractManager {
 
   insert(expense) {
     return this.database.query(
-      `INSERT INTO ${this.table} (amount,description,date) VALUES(?,?,?,)`,
+      `INSERT INTO ${this.table} (amount,description,date) VALUES(?,?,?)`,
       [expense.amount, expense.description, expense.date]
     );
   }

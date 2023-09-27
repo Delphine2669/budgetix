@@ -1,16 +1,55 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./BudgetDashboard.css";
-// import axios from "axios";
 
-function Budget(onAddTransaction) {
+function Budget({ onAddTransaction }) {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("expense");
   const [date, setDate] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [transactions, setTransactions] = useState([]);
+  const fetchAndUpdateTransactions = () => {
+    const incomesUrl = `${
+      import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001"
+    }/incomes`;
+    const expensesUrl = `${
+      import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001"
+    }/expenses`;
 
+    fetch(incomesUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((incomeData) => {
+        fetch(expensesUrl)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((expenseData) => {
+            const combinedData = [
+              ...incomeData.map((item) => ({ ...item, type: "income" })),
+              ...expenseData.map((item) => ({ ...item, type: "expense" })),
+            ];
+
+            combinedData.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            setTransactions(combinedData);
+          })
+          .catch((error) => {
+            console.error("Error fetching expense data:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error fetching income data:", error);
+      });
+  };
   function getBalanceColorClass(balance) {
     if (balance > 50) {
       return "green-balance";
@@ -26,7 +65,6 @@ function Budget(onAddTransaction) {
     const transaction = {
       amount: parseFloat(amount),
       description,
-      type,
       date,
     };
 
@@ -37,6 +75,37 @@ function Budget(onAddTransaction) {
     setType("income");
     setDate("");
     setShowForm(false);
+    const endpoint = type === "expense" ? "/expenses" : "/incomes";
+
+    const baseUrl = import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001";
+
+    const postDataUrl = `${baseUrl}${endpoint}`;
+    const requestData = {
+      ...transaction,
+    };
+
+    fetch(postDataUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+      })
+      .catch((error) => {
+        console.error("Error posting data:", error);
+      });
+    fetchAndUpdateTransactions();
   };
   const totalIncome = transactions
     ? transactions
@@ -53,7 +122,6 @@ function Budget(onAddTransaction) {
   const balance = totalIncome - totalExpenses;
 
   useEffect(() => {
-    // Replace these URLs with the endpoints for incomes and expenses
     const incomesUrl = `${
       import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001"
     }/incomes`;
@@ -61,7 +129,6 @@ function Budget(onAddTransaction) {
       import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001"
     }/expenses`;
 
-    // Fetch data from the incomes endpoint
     fetch(incomesUrl)
       .then((response) => {
         if (!response.ok) {
@@ -70,7 +137,6 @@ function Budget(onAddTransaction) {
         return response.json();
       })
       .then((incomeData) => {
-        // Fetch data from the expenses endpoint
         fetch(expensesUrl)
           .then((response) => {
             if (!response.ok) {
@@ -84,7 +150,7 @@ function Budget(onAddTransaction) {
               ...expenseData.map((item) => ({ ...item, type: "expense" })),
             ];
 
-            combinedData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            combinedData.sort((a, b) => new Date(b.date) - new Date(a.date));
 
             setTransactions(combinedData);
           })
@@ -96,6 +162,27 @@ function Budget(onAddTransaction) {
         console.error("Error fetching income data:", error);
       });
   }, []);
+  const handleDeleteTransaction = (transactionId, transaction) => {
+    const endpoint = transaction.type === "expense" ? "/expenses" : "/incomes";
+
+    const baseUrl = import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001";
+
+    const deleteUrl = `${baseUrl}${endpoint}/${transactionId}`;
+
+    fetch(deleteUrl, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+      })
+      .catch((error) => {
+        console.error("Error deleting transaction:", error);
+      });
+    fetchAndUpdateTransactions();
+  };
+
   const formatDate = (dateString) => {
     const dateObject = new Date(dateString);
     return dateObject.toLocaleDateString();
@@ -164,29 +251,46 @@ function Budget(onAddTransaction) {
           </form>
         )}
         <h3>transactions</h3>
-        <ul>
-          {transactions.map((transaction) => (
-            <li key={transaction.id} className="li-transaction">
-              <div
-                className={`"li-desc ${
-                  transaction.type === "income" ? "income-text" : "expense-text"
-                }`}
-              >
-                {transaction.description}
-              </div>
-              <div
-                className={`"li-amount ${
-                  transaction.type === "income" ? "income-text" : "expense-text"
-                }`}
-              >
-                | Amount: {transaction.amount}€{" "}
-              </div>
-              <div className="li-date">
-                | Date: {formatDate(transaction.date)}
-              </div>
-            </li>
+        <table className="table-budget">
+          <tr className="tr-header-budget">
+            <td className="td-amount">Amount</td>
+            <td className="td-desct">Description</td>
+            <td className="td-date">Date</td>
+          </tr>
+          {transactions.map((transaction, index) => (
+            <tr key={index} className="div-transaction">
+              <td className="li-transaction">
+                <td
+                  className={`"li-amount ${
+                    transaction.type === "income"
+                      ? "income-text"
+                      : "expense-text"
+                  }`}
+                >
+                  {transaction.amount}€
+                </td>
+                <td
+                  className={`"li-desc ${
+                    transaction.type === "income"
+                      ? "income-text"
+                      : "expense-text"
+                  }`}
+                >
+                  {transaction.description}
+                </td>
+                <td className="li-date">{formatDate(transaction.date)}</td>
+                <button
+                  onClick={() =>
+                    handleDeleteTransaction(transaction.id, transaction)
+                  }
+                  className="delete-button red-button"
+                >
+                  X
+                </button>
+              </td>
+            </tr>
           ))}
-        </ul>
+        </table>
       </div>
     </div>
   );

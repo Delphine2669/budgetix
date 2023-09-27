@@ -5,7 +5,6 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/register";
 import Header from "./components/Header";
-// import BudgetDashboard from "./components/BudgetDashboard";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

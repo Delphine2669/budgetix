@@ -1,4 +1,3 @@
-// import some node modules for later
 const fs = require("node:fs");
 const path = require("node:path");
 const cookieParser = require("cookie-parser");
@@ -6,8 +5,6 @@ const cookieParser = require("cookie-parser");
 const express = require("express");
 
 const app = express();
-
-// use some application-level middlewares
 
 app.use(express.json());
 app.use(cookieParser());
@@ -19,8 +16,6 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
-
-// import and mount the API routes
 
 const router = require("./router");
 
@@ -42,8 +37,6 @@ const reactIndexFile = path.join(
 );
 
 if (fs.existsSync(reactIndexFile)) {
-  // serve REACT resources
-
   app.use(express.static(path.join(__dirname, "..", "..", "frontend", "dist")));
 
   // redirect all requests to the REACT index file
@@ -53,6 +46,5 @@ if (fs.existsSync(reactIndexFile)) {
   });
 }
 // app.use(cookieParser());
-// ready to export
 
 module.exports = app;

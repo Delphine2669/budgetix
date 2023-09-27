@@ -1,24 +1,19 @@
-// import { useState } from "react";
-
-// import Form from "../components/Form";
-// import TransactionList from "../components/List";
+import { useState } from "react";
 import "../App.css";
-// import Login from "./Login";
-// import Register from "./register";
+
 import Budget from "../components/Budget";
 
 function Home() {
-  // const [transactions, setTransactions] = useState([]);
-  // const handleAddTransaction = (newTransaction) => {
-  //   setTransactions([...transactions, newTransaction]);
-  // };
+  const [transactions, setTransactions] = useState([]);
+
+  const onAddTransaction = (transaction) => {
+    setTransactions([...transactions, transaction]);
+    console.log("Adding transaction:", transaction);
+  };
 
   return (
     <>
-      <Budget />
-
-      {/* <Form onAddTransaction={handleAddTransaction} />
-      <TransactionList transactions={transactions} /> */}
+      <Budget onAddTransaction={onAddTransaction} />
     </>
   );
 }
