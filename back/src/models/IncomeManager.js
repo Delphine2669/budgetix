@@ -18,5 +18,14 @@ class IncomeManager extends AbstractManager {
       [income.amount, income.description, income.date, income.id]
     );
   }
+
+  getIncomesById(income) {
+    return this.database.query(`SELECT * from ${this.table} WHERE id=?`, [
+      income.amount,
+      income.description,
+      income.date,
+      income.id,
+    ]);
+  }
 }
 module.exports = IncomeManager;

@@ -1,4 +1,5 @@
 const models = require("../models");
+const AbstractManager = require("../models/AbstractManager");
 const UserManager = require("../models/UserManager");
 const userManager = new UserManager();
 const browse = (req, res) => {
@@ -78,4 +79,21 @@ const destroy = (req, res) => {
     });
 };
 
-module.exports = { browse, read, add, edit, destroy };
+const getUserIncome = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await userManager.getUserIncome(id);
+    const incomes = await IncomeManager.getIncomesByUserId(id);
+
+    const responseData = {
+      user,
+      incomes,
+    };
+    res.json(responseData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports = { browse, read, add, edit, destroy, getUserIncome };

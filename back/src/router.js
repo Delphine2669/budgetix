@@ -35,13 +35,11 @@ router.post("/expenses", expenseControllers.add);
 router.put("/expenses/:id", expenseControllers.edit);
 router.delete("/expenses/:id", expenseControllers.destroy);
 
+router.get("/users/:id/incomes", userControllers.getUserIncome);
+
 //*register and login
 router.post("/users", hashPassword, checkingUser, userControllers.add);
-// router.post(
-//   "/login",
-//   authControllers.getUserByUsernameWithPasswordAndPassToNext,
-//   verifyPassword
-// );
+
 router.post(
   "/login",
   authControllers.getUserByUsernameWithPasswordAndPassToNext,

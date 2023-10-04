@@ -24,6 +24,16 @@ class UserManager extends AbstractManager {
       [user.username]
     );
   }
+
+  getUserIncomes(userId) {
+    return this.database.query(
+      `SELECT i.*
+       FROM income AS i
+       INNER JOIN user AS u ON i.user_id = u.id
+       WHERE u.id = ?`,
+      [userId]
+    );
+  }
 }
 
 module.exports = UserManager;

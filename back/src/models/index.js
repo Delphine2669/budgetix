@@ -16,6 +16,26 @@ const database = mysql.createPool({
   database: DB_NAME,
 });
 
+// const mysql = require("mysql");
+// const connection = mysql.createConnection({
+//   // Get ProxySQL unix domain socket path from the environment
+//   socketPath: process.env["CC_MYSQL_PROXYSQL_SOCKET_PATH"],
+//   // Get the database user from the environment
+//   user: process.env["MYSQL_ADDON_USER"],
+//   // Get the database password from the environment
+//   password: process.env["MYSQL_ADDON_PASSWORD"],
+//   // Get the database name from the environment
+//   database: process.env["MYSQL_ADDON_DB"],
+// });
+// connection.connect(function (err) {
+//   if (err) {
+//     console.error("error connecting: " + err.stack);
+//     return;
+//   }
+
+//   console.log("connected as id " + connection.threadId);
+// });
+
 // try a connection
 
 database.getConnection().catch(() => {
