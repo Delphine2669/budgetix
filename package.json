@@ -17,8 +17,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^8.2.1",
-    "sequelize": "^6.33.0",
+    "concurrently": "^8.2.2",
+    "sequelize": "^6.37.5",
     "toastr": "^2.1.4"
   }
 }
