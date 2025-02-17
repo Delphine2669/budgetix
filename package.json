@@ -18,7 +18,16 @@
   "license": "ISC",
   "dependencies": {
     "concurrently": "^8.2.2",
+    "node": "^23.8.0",
     "sequelize": "^6.37.5",
     "toastr": "^2.1.4"
+  },
+  "devDependencies": {
+    "cross-env-shell": "^7.0.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "node"
+    ]
   }
 }

@@ -35,7 +35,7 @@
 .orange-balance {
   width: 20dvw;
   margin: auto;
-  height: 6dvh;
+  height: auto;
   place-self: center;
   padding: 3dvh 0dvw;
 }
@@ -91,7 +91,7 @@ label {
 .li-amount,
 .income-text,
 .expense-text {
-  padding-right: 5dvw;
+  padding: 3dvw, 3dvh;
 }
 @media screen and(min-width:600px) {
   .li-transaction {

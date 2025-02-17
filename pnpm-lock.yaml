@@ -11,12 +11,19 @@ importers:
       concurrently:
         specifier: ^8.2.2
         version: 8.2.2
+      node:
+        specifier: ^23.8.0
+        version: 23.8.0
       sequelize:
         specifier: ^6.37.5
         version: 6.37.5
       toastr:
         specifier: ^2.1.4
         version: 2.1.4
+    devDependencies:
+      cross-env-shell:
+        specifier: ^7.0.3
+        version: 7.0.3
 
 packages:
 
@@ -62,6 +69,10 @@ packages:
   concurrently@8.2.2:
     resolution: {integrity: sha512-1dP4gpXFhei8IOtlXRE/T/4H88ElHgTiUzh71YUmtjTEHMSRS2Z/fgOxHSxxusGHogsRfxNq1vyAwxSC+EVyDg==}
     engines: {node: ^14.13.0 || >=16.0.0}
+    hasBin: true
+
+  cross-env-shell@7.0.3:
+    resolution: {integrity: sha512-ZEtnHInQRRzuAbmMpUqu/mk1jaZun14WdcmnpzZZ6Bpi1BLTPkbKioQ6+wkFssf+m/DpdttDpsCX6g8zU9W40A==}
     hasBin: true
 
   date-fns@2.30.0:
@@ -117,6 +128,14 @@ packages:
 
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
+
+  node-bin-setup@1.1.3:
+    resolution: {integrity: sha512-opgw9iSCAzT2+6wJOETCpeRYAQxSopqQ2z+N6BXwIMsQQ7Zj5M8MaafQY8JMlolRR6R1UXg2WmhKp0p9lSOivg==}
+
+  node@23.8.0:
+    resolution: {integrity: sha512-zpMLfzaDh6kSnjuaGMd9q0tD3UhIe+GEbHt7d0/mnrjdGRHABWSYd2x8+81KZI5m4H0l92zdTOdcBm+qXsnpxg==}
+    engines: {npm: '>=5.0.0'}
+    hasBin: true
 
   pg-connection-string@2.7.0:
     resolution: {integrity: sha512-PI2W9mv53rXJQEOb8xNR8lH7Hr+EKa6oJa38zsK0S/ky2er16ios1wLKhZyxzD7jUReiWokc9WK5nxSnC7W1TA==}
@@ -295,6 +314,8 @@ snapshots:
       tree-kill: 1.2.2
       yargs: 17.7.2
 
+  cross-env-shell@7.0.3: {}
+
   date-fns@2.30.0:
     dependencies:
       '@babel/runtime': 7.26.9
@@ -328,6 +349,12 @@ snapshots:
   moment@2.30.1: {}
 
   ms@2.1.3: {}
+
+  node-bin-setup@1.1.3: {}
+
+  node@23.8.0:
+    dependencies:
+      node-bin-setup: 1.1.3
 
   pg-connection-string@2.7.0: {}
 
