@@ -252,14 +252,16 @@ function Budget({ onAddTransaction }) {
         )}
         <h3>transactions</h3>
         <table className="table-budget">
-          <tr className="tr-header-budget">
-            <td className="td-amount">Amount</td>
-            <td className="td-desct">Description</td>
-            <td className="td-date">Date</td>
-          </tr>
-          {transactions.map((transaction, index) => (
-            <tr key={index} className="div-transaction">
-              <td className="li-transaction">
+          <thead>
+            <tr>
+              <th className="td-amount">Amount</th>
+              <th className="td-desct">Description</th>
+              <th className="td-date">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {transactions.map((transaction, index) => (
+              <tr key={index} className="div-transaction">
                 <td
                   className={`"li-amount ${
                     transaction.type === "income"
@@ -279,17 +281,19 @@ function Budget({ onAddTransaction }) {
                   {transaction.description}
                 </td>
                 <td className="li-date">{formatDate(transaction.date)}</td>
-                <button
-                  onClick={() =>
-                    handleDeleteTransaction(transaction.id, transaction)
-                  }
-                  className="delete-button red-button"
-                >
-                  X
-                </button>
-              </td>
-            </tr>
-          ))}
+                <td>
+                  <button
+                    onClick={() =>
+                      handleDeleteTransaction(transaction.id, transaction)
+                    }
+                    className="delete-button red-button"
+                  >
+                    X
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </div>

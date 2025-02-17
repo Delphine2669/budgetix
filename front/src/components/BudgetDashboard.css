@@ -74,8 +74,7 @@
   margin: auto;
 }
 .delete-button {
-  line-height: 1;
-  height: 4.8dvh;
+  width: fit-content;
 }
 .table-budget {
   margin: auto;
