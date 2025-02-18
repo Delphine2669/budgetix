@@ -1,8 +1,9 @@
-.nav-home-link,
+/* .nav-home-link,
 .nav-login-link {
   padding: 2dvw;
   font-size: larger;
-}
+} */
+
 ul {
   list-style: none;
 }
@@ -11,8 +12,7 @@ ul {
   justify-content: center;
 }
 .logo-budgetix {
-  width: 16dvw;
-  background-image: url(${logo});
+  width: 150px;
 }
 .header {
   display: flex;
@@ -21,6 +21,11 @@ ul {
 .title {
   color: #eeefd3;
   margin: auto;
+}
+@media scren and(min-width:600px) {
+  .logo-budgetix {
+    width: 16dvw;
+  }
 }
 @media (prefers-color-scheme: light) {
   .title {

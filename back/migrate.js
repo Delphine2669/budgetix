@@ -17,6 +17,7 @@ const migrate = async () => {
   await connection.query(`drop database if exists ${DB_NAME}`);
   await connection.query(`create database ${DB_NAME}`);
   await connection.query(`use ${DB_NAME}`);
+  console.log("Current working directory:", process.cwd());
 
   const sql = fs.readFileSync("./database.sql", "utf8");
 

@@ -161,6 +161,7 @@ function Budget({ onAddTransaction }) {
       .catch((error) => {
         console.error("Error fetching income data:", error);
       });
+    fetchAndUpdateTransactions();
   }, []);
   const handleDeleteTransaction = (transactionId, transaction) => {
     const endpoint = transaction.type === "expense" ? "/expenses" : "/incomes";

@@ -4,7 +4,7 @@ import "./App.css";
 import Home from "./pages/Home";
 // import Login from "./pages/Login";
 // import Register from "./pages/register";
-// import Header from "./components/Header";
+import Header from "./components/Header";
 
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -20,6 +20,7 @@ function App() {
 
   return (
     <>
+      <Header />
       {/* <Header isAuthenticated={isAuthenticated} handleLogout={handleLogout} /> */}
       {/* <Routes>
         <Route path="/" element={<Home />} />
