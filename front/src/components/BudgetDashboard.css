@@ -62,7 +62,9 @@
 .td-amount {
   margin-left: -10dvw;
 }
-
+tr:hover {
+  background-color: var(--hover-row);
+}
 .tr-header-budget {
   padding-bottom: 4dvh;
   font-size: x-large;
@@ -104,8 +106,8 @@ label {
       45deg,
       transparent,
       transparent 0.2px,
-      orange 1px,
-      orange 1px
+      var(--orange-color) 1px,
+      var(--orange-color) 1px
     );
     border-radius: 15px;
     border: 0.4dvw solid black;
@@ -116,8 +118,8 @@ label {
       45deg,
       transparent,
       transparent 0.2px,
-      green 1px,
-      green 1px
+      var(--green-color) 1px,
+      var(--green-color) 1px
     );
     border-radius: 15px;
     border: 0.4dvw solid black;
@@ -128,8 +130,8 @@ label {
       45deg,
       transparent,
       transparent 0.2px,
-      red 1px,
-      red 1px
+      var(--red-color) 1px,
+      var(--red-color) 1px
     );
     border-radius: 15px;
     border: 0.4dvw solid black;
