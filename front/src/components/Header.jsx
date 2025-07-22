@@ -17,21 +17,22 @@ function Header() {
     setIsDarkTheme(prefersDarkTheme);
   }, []);
   return (
-    <div>
-      <div className="header">
-        <Link to="/">
-          <img
-            src={isDarkTheme ? darkLogo : lightLogo}
-            alt="logo representant un billet"
-            className="logo-budgetix"
-          />
-        </Link>
+    <div className="header">
+      <Link to="/">
+        <img
+          src={isDarkTheme ? darkLogo : lightLogo}
+          alt="logo representant un billet"
+          className="logo-budgetix"
+        />
+      </Link>
+      <div className="word-header">
         <h1 className="title">Budget app</h1>
-        <Link to="/register" className="register-header-link">
-          Register
-        </Link>
+
         <Link to="/login" className="login-header-link">
           Login
+        </Link>
+        <Link to="/register" className="register-header-link">
+          Register
         </Link>
       </div>
     </div>

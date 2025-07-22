@@ -6,6 +6,7 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
+  --app-color: #eeefd3;
   --orange-color: #ef8827;
   --green-color: #18933b;
   --red-color: #d81223;
