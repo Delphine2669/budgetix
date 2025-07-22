@@ -2,6 +2,8 @@ import toastr from "toastr";
 import PropTypes from "prop-types";
 import { useNavigate, NavLink } from "react-router-dom";
 import { useState } from "react";
+
+import Header from "../components/Header";
 toastr.options = {
   closeButton: false,
   debug: false,
@@ -39,7 +41,9 @@ const Login = ({ setIsAuthenticated }) => {
     const user = { username, password };
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001"}/login`,
+        `${
+          import.meta.env.FORMER_VITE_BACKEND_URL ?? "http://localhost:5000"
+        }/login`,
         {
           method: "POST",
           headers: {
@@ -51,7 +55,7 @@ const Login = ({ setIsAuthenticated }) => {
       if (res.ok) {
         toastr.success("Successfully logged in");
         setIsAuthenticated(true);
-        navigate("/");
+        navigate("/account");
       } else {
         const errorMessage = await res.text();
         toastr.error(`Failed to login: ${errorMessage}`);
@@ -64,6 +68,8 @@ const Login = ({ setIsAuthenticated }) => {
 
   return (
     <div>
+      <Header />
+
       <h2>Login</h2>
       <div>
         <NavLink to="/register">No account yet? Sign up here</NavLink>

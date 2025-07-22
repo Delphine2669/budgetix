@@ -1,13 +1,14 @@
 import "./App.css";
-// import { useState } from "react";
-// import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-// import Login from "./pages/Login";
-// import Register from "./pages/register";
-import Header from "./components/Header";
+import Login from "./pages/Login";
+
+import Connected from "./pages/Connected";
+import Register from "./pages/Register";
 
 function App() {
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   // const navigate = useNavigate();
 
   // const handleLogout = (event) => {
@@ -15,20 +16,17 @@ function App() {
   //   sessionStorage.removeItem("userToken");
   //   setIsAuthenticated(false);
 
-  //   navigate("/");
+  // navigate("/");
   // };
 
   return (
     <>
-      <Header />
-      {/* <Header isAuthenticated={isAuthenticated} handleLogout={handleLogout} /> */}
-      {/* <Routes>
+      <Routes>
         <Route path="/" element={<Home />} />
         {/* // isAuthenticated={isAuthenticated}
             // handleLogout={handleLogout}
            */}
-
-      {/* <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<Register />} />
         <Route
           path="/login"
           element={
@@ -37,9 +35,9 @@ function App() {
               setIsAuthenticated={setIsAuthenticated}
             />
           }
-        /> */}
-      {/* </Routes> */}
-      <Home />
+        />
+        <Route path="/account" element={<Connected />} />
+      </Routes>
     </>
   );
 }

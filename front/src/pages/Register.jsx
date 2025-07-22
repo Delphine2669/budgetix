@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toastr from "toastr";
+import Header from "../components/Header";
+
 toastr.options = {
   closeButton: false,
   debug: false,
@@ -53,7 +55,9 @@ const Register = () => {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001"}/users`,
+        `${
+          import.meta.env.FORMER_VITE_BACKEND_URL ?? "http://localhost:5000"
+        }/users`,
         {
           method: "POST",
           headers: {
@@ -80,6 +84,7 @@ const Register = () => {
 
   return (
     <div>
+      <Header />
       <h2>Register</h2>
       <form>
         <div>

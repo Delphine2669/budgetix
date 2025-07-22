@@ -1,5 +1,6 @@
 // import Navbar from "./Navbar";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Header.css";
 import lightLogo from "../assets/logoLight.svg";
@@ -16,24 +17,29 @@ function Header() {
     setIsDarkTheme(prefersDarkTheme);
   }, []);
   return (
-    <header>
-      <div>
-        <div className="header">
+    <div>
+      <div className="header">
+        <Link to="/">
           <img
             src={isDarkTheme ? darkLogo : lightLogo}
             alt="logo representant un billet"
             className="logo-budgetix"
           />
-          <h1 className="title">Budget app</h1>
-        </div>
-        {/* <Navbar isAuthenticated={isAuthenticated} handleLogout={handleLogout} />*/}
+        </Link>
+        <h1 className="title">Budget app</h1>
+        <Link to="/register" className="register-header-link">
+          Register
+        </Link>
+        <Link to="/login" className="login-header-link">
+          Login
+        </Link>
       </div>
-    </header>
+    </div>
   );
 }
 // }
-// Header.propTypes = {
-//   isAuthenticated: PropTypes.bool,
-//   handleLogout: PropTypes.func,
-// };
+Header.propTypes = {
+  isAuthenticated: PropTypes.bool,
+  handleLogout: PropTypes.func,
+};
 export default Header;

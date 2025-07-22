@@ -40,7 +40,7 @@ CREATE TABLE `expense` (
 
 LOCK TABLES `expense` WRITE;
 /*!40000 ALTER TABLE `expense` DISABLE KEYS */;
-INSERT INTO `expense` VALUES (1,4,'bakery','2025-01-03 00:00:00',1),(2,70,'night out','2025-01-08 00:00:00',1),(3,12,'book store','2025-02-02 00:00:00',1);
+INSERT INTO `expense` VALUES (1,4,'bakery','2025-07-03 00:00:00',2),(2,70,'night out','2025-07-08 00:00:00',2),(3,12,'book store','2025-07-02 00:00:00',2),(4,600,'rent','2025-07-04 00:00:00',1),(5,15,'errands','2025-07-22 00:00:00',1),(6,1000,'car repair','2025-07-19 00:00:00',1);
 /*!40000 ALTER TABLE `expense` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,7 +69,8 @@ CREATE TABLE `income` (
 
 LOCK TABLES `income` WRITE;
 /*!40000 ALTER TABLE `income` DISABLE KEYS */;
-INSERT INTO `income` VALUES (1,1350,'salary','2025-02-05 00:00:00',1),(2,150,'grant','2025-01-07 00:00:00',1),(3,200,'loan','2025-01-28 00:00:00',1);
+INSERT INTO `income` VALUES (1,1350,'salary','2025-07-05 00:00:00',2),(2,150,'grant','2025-07-07 00:00:00',2),(3,200,'loan','2025-06-28 00:00:00',2),(4,25000,'lottery','2025-06-10 00:00:00',1),(5,1500,'salary','2025-07-06 00:00:00',1),
+(6,190,'wire','2025-07-16 00:00:00',1);
 /*!40000 ALTER TABLE `income` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +97,9 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','admin@admin.fr','$argon2id$v=19$m=65536,t=5,p=1$AqCaEGa6qPwUrrVW24jenQ$yNHohmlYVRSKjMynbKoP49kM0CDP2Xx/9tOxDEMytAQ');
+INSERT INTO `user` VALUES (1,'Carrie','dd26om@hotmail.fr
+','$argon2id$v=19$m=65536,t=5,p=1$AqCaEGa6qPwUrrVW24jenQ$yNHohmlYVRSKjMynbKoP49kM0CDP2Xx/9tOxDEMytAQ
+'),(2,'admin','admin@admin.fr','$argon2id$v=19$m=65536,t=5,p=1$AqCaEGa6qPwUrrVW24jenQ$yNHohmlYVRSKjMynbKoP49kM0CDP2Xx/9tOxDEMytAQ');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
