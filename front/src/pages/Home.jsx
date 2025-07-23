@@ -8,6 +8,15 @@ export default function Home() {
   const [date, setDate] = useState("");
   const [transactions, setTransactions] = useState([]);
   const [type, setType] = useState("expense");
+  function getBalanceColorClass(balance) {
+    if (balance > 50) {
+      return "green-balance";
+    } else if (balance >= 0) {
+      return "orange-balance";
+    } else {
+      return "red-balance";
+    }
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({ amount, description, type, date });
@@ -36,18 +45,31 @@ export default function Home() {
     );
     setTransactions(updatedTransactions);
   };
+  const totalIncome = transactions
+    ? transactions
+        .filter((transaction) => transaction.type === "income")
+        .reduce((acc, transaction) => acc + transaction.amount, 0)
+    : 0;
+
+  const totalExpenses = transactions
+    ? transactions
+        .filter((transaction) => transaction.type === "expense")
+        .reduce((acc, transaction) => acc + transaction.amount, 0)
+    : 0;
+
+  const balance = totalIncome - totalExpenses;
   return (
     <>
       <Header />
       <div>
-        {/* <div className="balance-container">
+        <div className="balance-container">
           <h3>Balance:</h3>
           <div className="balance-box">
             <h2 className={`h2-balance ${getBalanceColorClass(balance)}`}>
               {balance} €
             </h2>
           </div>
-        </div> */}
+        </div>
         <div className="form-component-box">
           <button
             className={`"adding-button ${

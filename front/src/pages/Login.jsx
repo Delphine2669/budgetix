@@ -52,7 +52,11 @@ const Login = ({ setIsAuthenticated }) => {
           body: JSON.stringify(user),
         }
       );
+      // const data = await res.json();
       if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userId", data.user.id);
         toastr.success("Successfully logged in");
         setIsAuthenticated(true);
         navigate("/account");

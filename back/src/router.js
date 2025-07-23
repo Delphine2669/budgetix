@@ -36,6 +36,10 @@ router.put("/expenses/:id", expenseControllers.edit);
 router.delete("/expenses/:id", expenseControllers.destroy);
 
 router.get("/users/:id/incomes", userControllers.getUserIncome);
+router.get(
+  "/users/:id/incomes-expenses",
+  userControllers.getUserIncomesAndExpenses
+);
 
 //*register and login
 router.post("/users", hashPassword, checkingUser, userControllers.add);

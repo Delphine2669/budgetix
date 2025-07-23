@@ -31,7 +31,7 @@ const verifyPassword = (req, res) => {
     .then((isVerified) => {
       if (isVerified) {
         const payload = { sub: req.user.id };
-        const token = jwt.sign(payload, process.env.JWT_SECRET, {
+        const token = jwt.sign(payload, process.env.FORMER_JWT_SECRET, {
           expiresIn: "10d",
         });
         delete req.user.hashedPassword;
@@ -58,7 +58,7 @@ const verifyToken = (req, res, next) => {
     }
     req.token = token;
 
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(token, process.env.FORMER_JWT_SECRET);
 
     req.payload = decodedToken;
 

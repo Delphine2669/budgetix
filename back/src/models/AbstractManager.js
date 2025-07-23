@@ -1,6 +1,7 @@
 class AbstractManager {
   constructor({ table }) {
     this.table = table;
+    this.database = null;
   }
 
   find(id) {

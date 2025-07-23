@@ -1,7 +1,7 @@
 const models = require("../models");
 const AbstractManager = require("../models/AbstractManager");
 const UserManager = require("../models/UserManager");
-const userManager = new UserManager();
+// const userManager = new UserManager();
 const browse = (req, res) => {
   models.user
     .findAll()
@@ -79,21 +79,54 @@ const destroy = (req, res) => {
     });
 };
 
-const getUserIncome = async (req, res) => {
+const getUserIncome = (req, res) => {
+  const userId = parseInt(req.params.id, 10);
+
+  if (isNaN(userId)) {
+    return res.status(400).send("Invalid user ID");
+  }
+
+  models.user
+    .getUserIncomes(userId)
+
+    .then(([rows]) => {
+      if (rows.length === 0) {
+        res.status(404).send("No data found for this user");
+      } else {
+        res.json(rows);
+        res.status(200).json(rows);
+      }
+    })
+    .catch((err) => {
+      console.error("Error fetching user incomes/expenses:", err);
+      res.status(500).send("Internal server error");
+    });
+};
+
+const getUserIncomesAndExpenses = async (req, res) => {
+  console.log("Is database set?", models.user.database); // should NOT be null
+
   try {
     const { id } = req.params;
-    const user = await userManager.getUserIncome(id);
-    const incomes = await IncomeManager.getIncomesByUserId(id);
 
-    const responseData = {
-      user,
-      incomes,
-    };
-    res.json(responseData);
+    const [expenses] = await models.user.getUserExpensesP(id);
+    const [incomes] = await models.user.getUserIncomesP(id);
+
+    res.json({ expenses, incomes });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error("Error fetching user income and expenses:", error);
+
+    // Send error message back for debugging (remove in production)
+    res.status(500).json({ error: error.message || "Internal server error" });
   }
 };
 
-module.exports = { browse, read, add, edit, destroy, getUserIncome };
+module.exports = {
+  browse,
+  read,
+  add,
+  edit,
+  destroy,
+  getUserIncome,
+  getUserIncomesAndExpenses,
+};
