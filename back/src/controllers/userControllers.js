@@ -80,7 +80,29 @@ const destroy = (req, res) => {
 };
 
 const getUserIncome = (req, res) => {
-  // const userId = parseInt(req.params.id, 10);
+  const userId = parseInt(req.params.id, 10);
+  console.log("userId from params:", userId);
+  if (isNaN(userId)) {
+    return res.status(400).send("Invalid user ID");
+  }
+
+  models.user
+    .getUserIncomes(userId)
+
+    .then(([rows]) => {
+      if (rows.length === 0) {
+        res.status(404).send("No data found for this user");
+      } else {
+        res.json(rows);
+        res.status(200).json(rows);
+      }
+    })
+    .catch((err) => {
+      console.error("Error fetching user incomes/expenses:", err);
+      res.status(500).send("Internal server error");
+    });
+};
+const getUserExpense = (req, res) => {
   const userData = req.params.id;
 
   if (isNaN(userId)) {
@@ -88,7 +110,7 @@ const getUserIncome = (req, res) => {
   }
 
   models.user
-    .getUserIncomes(userId)
+    .getUserExpense(userId)
 
     .then(([rows]) => {
       if (rows.length === 0) {

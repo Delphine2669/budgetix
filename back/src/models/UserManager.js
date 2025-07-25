@@ -25,7 +25,7 @@ class UserManager extends AbstractManager {
     );
   }
 
-  getUserIncomes(user) {
+  getUserIncomes(userId) {
     return this.database.query(
       `SELECT 
             u.id AS user_id,
@@ -40,7 +40,7 @@ class UserManager extends AbstractManager {
             income AS i ON u.id = i.user_id
          WHERE 
             u.id = ?`,
-      [user.id]
+      [userId]
     );
   }
 

@@ -19,6 +19,13 @@ class IncomeManager extends AbstractManager {
     );
   }
 
+  post(income) {
+    return this.database.query(
+      `INSERT INTO ${this.table} (amount, description, date, user_id) VALUES (?, ?, ?, ?`,
+      [income.amount, income.description, income.date, income.id]
+    );
+  }
+
   getIncomesById(income) {
     return this.database.query(`SELECT * from ${this.table} WHERE id=?`, [
       income.amount,

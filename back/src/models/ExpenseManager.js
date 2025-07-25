@@ -18,5 +18,12 @@ class ExpenseManager extends AbstractManager {
       [expense.amount, expense.description, expense.date, expense.id]
     );
   }
+
+  post(expense) {
+    return this.database.query(
+      `INSERT INTO ${this.table} (amount, description, date, user_id) VALUES (?, ?, ?, ?`,
+      [expense.amount, expense.description, expense.date, expense.id]
+    );
+  }
 }
 module.exports = ExpenseManager;
