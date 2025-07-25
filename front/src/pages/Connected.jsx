@@ -8,7 +8,14 @@ export default function Connected() {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [data, setData] = useState([]);
+  const [currency, setCurrency] = useState("€");
   const [username, setUsername] = useState("");
+  // const [showForm, setShowForm] = useState(false);
+  // const [description, setDescription] = useState("");
+  // const [amount, setAmount] = useState("");
+  // const [type, setType] = useState("expense");
+  // const [date, setDate] = useState("");
+
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("token");
@@ -52,12 +59,6 @@ export default function Connected() {
     fetchUserData();
   }, []);
 
-  // const [transactions, setTransactions] = useState([]);
-
-  // const onAddTransaction = (transaction) => {
-  //   setTransactions([...transactions, transaction]);
-  //   console.log("Adding transaction:", transaction);
-  // };
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
@@ -68,14 +69,77 @@ export default function Connected() {
       <Header />
       <button onClick={handleLogout}>Logout</button>
       <h2>
-        {username ? `${username}'s Financial Data` : "User Financial Data"}
+        {username ? `${username}'s Recent transactions` : "User Financial Data"}
       </h2>
+      {/* <div className="form-component-box">
+        <button
+          className={`"adding-button ${
+            showForm ? "red-button" : "green-button"
+          }`}
+          onClick={() => setShowForm(!showForm)}
+        >
+          {showForm ? "x" : "+"}
+        </button>
+        {showForm && (
+          <form onSubmit={handleSubmit}>
+            <div className="form-container">
+              <label htmlFor="amount">Amount:</label>
+              <input
+                type="number"
+                id="amount"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                required
+              />
+              <label htmlFor="Description">Description:</label>
+              <input
+                type="text"
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+              />
+              <label htmlFor="type">Type:</label>
+              <select
+                id="type"
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+                required
+              >
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+              </select>
+              <label htmlFor="date">Date:</label>
+              <input
+                type="date"
+                id="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+              />
+              <button type="submit" className="button-submit">
+                Add
+              </button>
+            </div>
+          </form>
+        )}
+      </div> */}
       {!data.length ? (
         <p>No data</p>
       ) : (
         <div>
-          <h3>Recent Transactions</h3>
           <div className="div-budget-table">
+            <div>
+              <label htmlFor="currency">Currency: </label>
+              <select
+                id="currency"
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value)}
+              >
+                <option value="$">$ USD</option>
+                <option value="€">€ EUR</option>
+              </select>
+            </div>
             <table className="table-budget">
               <thead>
                 <tr>
@@ -85,15 +149,15 @@ export default function Connected() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((entry) => (
+                {data.map((entry, index) => (
                   <tr
                     key={`${entry.type}-${entry.id}`}
                     className={
-                      entry.type === "income" ? "income-row" : "expense-row"
+                      entry.type === "income" ? "income-text" : "expense-text"
                     }
                   >
                     <td className="td-amount">
-                      {entry.type === "income" ? "+" : "-"}${entry.amount}
+                      {entry.amount} {currency}
                     </td>
                     <td className="td-desc">{entry.description}</td>
                     <td className="td-date">
