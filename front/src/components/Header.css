@@ -9,7 +9,8 @@
 .login-header-link,
 .register-header-link {
   color: var(--app-color);
-  /* padding: 2dvw; */
+  font-size: larger;
+  font-weight: 600;
 }
 
 ul {

@@ -2,8 +2,6 @@ import toastr from "toastr";
 import PropTypes from "prop-types";
 import { useNavigate, NavLink } from "react-router-dom";
 import { useState } from "react";
-
-import Header from "../components/Header";
 toastr.options = {
   closeButton: false,
   debug: false,
@@ -62,6 +60,7 @@ const Login = ({ setIsAuthenticated }) => {
         toastr.success("Successfully logged in");
         setIsAuthenticated(true);
         navigate("/account");
+        window.dispatchEvent(new Event("authChanged"));
       } else {
         const errorMessage = await res.text();
         toastr.error(`Failed to login: ${errorMessage}`);
@@ -74,8 +73,6 @@ const Login = ({ setIsAuthenticated }) => {
 
   return (
     <div>
-      <Header />
-
       <h2>Login</h2>
       <div>
         <NavLink to="/register">No account yet? Sign up here</NavLink>

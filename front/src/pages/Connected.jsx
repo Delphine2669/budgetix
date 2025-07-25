@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import "../components/budgetDashboard.css";
-import Header from "../components/Header";
 
 export default function Connected() {
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [data, setData] = useState([]);
   const [currency, setCurrency] = useState("€");
   const [username, setUsername] = useState("");
@@ -59,17 +58,10 @@ export default function Connected() {
     fetchUserData();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsAuthenticated(false);
-    navigate("/");
-  };
   return (
     <div>
-      <Header />
-      <button onClick={handleLogout}>Logout</button>
       <h2>
-        {username ? `${username}'s Recent transactions` : "User Financial Data"}
+        {username ? `Recent transactions` : "Unknown User Financial Data"}
       </h2>
       {/* <div className="form-component-box">
         <button

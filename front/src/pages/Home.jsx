@@ -1,5 +1,5 @@
 import "../App.css";
-import Header from "../components/Header";
+
 import { useState } from "react";
 export default function Home() {
   const [description, setDescription] = useState("");
@@ -60,7 +60,6 @@ export default function Home() {
   const balance = totalIncome - totalExpenses;
   return (
     <>
-      <Header />
       <div>
         <div className="balance-container">
           <h3>Balance:</h3>

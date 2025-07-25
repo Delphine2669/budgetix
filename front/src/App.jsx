@@ -6,11 +6,18 @@ import Login from "./pages/Login";
 
 import Connected from "./pages/Connected";
 import Register from "./pages/Register";
+import Header from "./components/Header";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem("token")
+  );
   // const navigate = useNavigate();
-
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+    navigate("/");
+  };
   // const handleLogout = (event) => {
   //   event.preventDefault();
   //   sessionStorage.removeItem("userToken");
@@ -21,6 +28,7 @@ function App() {
 
   return (
     <>
+      <Header isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home />} />
         {/* // isAuthenticated={isAuthenticated}

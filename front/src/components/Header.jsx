@@ -1,13 +1,13 @@
 // import Navbar from "./Navbar";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Header.css";
 import lightLogo from "../assets/logoLight.svg";
 import darkLogo from "../assets/logoD.png";
+import Navbar from "./Navbar";
 
-// function Header({ isAuthenticated, handleLogout }) {
-function Header() {
+export default function Header() {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   useEffect(() => {
     const prefersDarkTheme = window.matchMedia(
@@ -16,6 +16,7 @@ function Header() {
 
     setIsDarkTheme(prefersDarkTheme);
   }, []);
+
   return (
     <div className="header">
       <Link to="/">
@@ -25,22 +26,8 @@ function Header() {
           className="logo-budgetix"
         />
       </Link>
-      <div className="word-header">
-        <h1 className="title">Budget app</h1>
-
-        <Link to="/login" className="login-header-link">
-          Login
-        </Link>
-        <Link to="/register" className="register-header-link">
-          Register
-        </Link>
-      </div>
+      <h1 className="title">Budget app</h1>
+      <Navbar />
     </div>
   );
 }
-// }
-Header.propTypes = {
-  isAuthenticated: PropTypes.bool,
-  handleLogout: PropTypes.func,
-};
-export default Header;

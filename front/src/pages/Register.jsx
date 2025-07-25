@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toastr from "toastr";
-import Header from "../components/Header";
-
 toastr.options = {
   closeButton: false,
   debug: false,
@@ -84,7 +82,6 @@ const Register = () => {
 
   return (
     <div>
-      <Header />
       <h2>Register</h2>
       <form>
         <div>
