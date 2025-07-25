@@ -7,9 +7,10 @@ export default function AuthProvider({ children }) {
     !!localStorage.getItem("token")
   );
 
-  const login = (userId, token) => {
+  const login = (userId, token, username) => {
     localStorage.setItem("userId", userId);
     localStorage.setItem("token", token);
+    localStorage.setItem("username", username);
     setIsAuthenticated(true);
   };
 

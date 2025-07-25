@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
-
-// import Budget from "../components/Budget";
+import "../components/budgetDashboard.css";
 import Header from "../components/Header";
 
 export default function Connected() {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [data, setData] = useState([]);
+  const [username, setUsername] = useState("");
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("token");
+      const storedUsername = localStorage.getItem("username");
+
+      if (storedUsername) setUsername(storedUsername);
       const userId = localStorage.getItem("userId");
-      console.log("Fetched userId:", userId);
       if (!token || !userId) {
         console.warn("Missing token or userId");
         return;
@@ -26,18 +28,23 @@ export default function Connected() {
           },
         }
       );
-      console.log("Fetched userId:", userId);
       if (res.headers.get("content-type")?.includes("application/json")) {
         if (res.ok) {
           const result = await res.json();
-          console.log("Raw fetched data:", result);
-          console.log("userId:", userId);
-          console.log("token:", token);
-          setData(result);
+          console.log("dataResult:", result);
+          const combined = [
+            ...result.expenses.map((e) => ({ ...e, type: "expense" })),
+            ...result.incomes.map((i) => ({ ...i, type: "income" })),
+          ];
+
+          const sorted = combined.sort(
+            (a, b) => new Date(b.date) - new Date(a.date)
+          );
+          setData(sorted);
           setIsAuthenticated(true);
         } else {
           const text = await res.text();
-          console.error("Expected JSON, got:", text);
+          console.error("Fetch error:", text);
         }
       }
     };
@@ -57,67 +64,48 @@ export default function Connected() {
     navigate("/");
   };
   return (
-    <>
+    <div>
       <Header />
       <button onClick={handleLogout}>Logout</button>
-      {/* <Budget onAddTransaction={onAddTransaction} />
-       */}
-      {/* <div>
-        <h2>User Financial Data</h2>
-
-        {data.length === 0 ? (
-          <p>No data</p>
-        ) : (
-          data.map((entry, index) => (
-            <div key={index}>
-              <h3>{entry.username}</h3>
-              {entry.expense_id && (
-                <p>
-                  <strong>Expense:</strong> {entry.expense_amount} on{" "}
-                  {entry.expense_date} ({entry.expense_description})
-                </p>
-              )}
-              {entry.income_id && (
-                <p>
-                  <strong>Income:</strong> {entry.income_amount} on{" "}
-                  {entry.income_date} ({entry.income_description})
-                </p>
-              )}
-
-              <hr />
-            </div>
-          ))
-        )}
-      </div> */}
-      <h2>User Financial Data</h2>
-
-      {!data || (!data.expenses?.length && !data.incomes?.length) ? (
-        <p>No</p>
+      <h2>
+        {username ? `${username}'s Financial Data` : "User Financial Data"}
+      </h2>
+      {!data.length ? (
+        <p>No data</p>
       ) : (
-        <>
-          <h3>Expenses</h3>
-          {data.expenses.map((expense) => (
-            <div key={expense.id}>
-              <p>
-                <strong>Expense:</strong> ${expense.amount} on{" "}
-                {new Date(expense.date).toLocaleDateString()} (
-                {expense.description})
-              </p>
-            </div>
-          ))}
-
-          <h3>Incomes</h3>
-          {data.incomes.map((income) => (
-            <div key={income.id}>
-              <p>
-                <strong>Income:</strong> ${income.amount} on{" "}
-                {new Date(income.date).toLocaleDateString()} (
-                {income.description})
-              </p>
-            </div>
-          ))}
-        </>
+        <div>
+          <h3>Recent Transactions</h3>
+          <div className="div-budget-table">
+            <table className="table-budget">
+              <thead>
+                <tr>
+                  <th className="td-amount">Amount</th>
+                  <th className="td-desct">Description</th>
+                  <th className="td-date">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((entry) => (
+                  <tr
+                    key={`${entry.type}-${entry.id}`}
+                    className={
+                      entry.type === "income" ? "income-row" : "expense-row"
+                    }
+                  >
+                    <td className="td-amount">
+                      {entry.type === "income" ? "+" : "-"}${entry.amount}
+                    </td>
+                    <td className="td-desc">{entry.description}</td>
+                    <td className="td-date">
+                      {new Date(entry.date).toLocaleDateString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       )}
-    </>
+    </div>
   );
 }

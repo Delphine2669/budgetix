@@ -55,8 +55,10 @@ const Login = ({ setIsAuthenticated }) => {
       // const data = await res.json();
       if (res.ok) {
         const data = await res.json();
+        console.log("login date:", data);
         localStorage.setItem("token", data.token);
         localStorage.setItem("userId", data.user.id);
+        localStorage.setItem("username", data.user.username);
         toastr.success("Successfully logged in");
         setIsAuthenticated(true);
         navigate("/account");

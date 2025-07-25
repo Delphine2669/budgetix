@@ -95,6 +95,9 @@ label {
 .expense-text {
   padding: 3dvw, 3dvh;
 }
+.div-budget-table {
+  margin: auto;
+}
 @media screen and(min-width:600px) {
   .li-transaction {
     font-size: 7rem;
