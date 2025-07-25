@@ -80,7 +80,8 @@ const destroy = (req, res) => {
 };
 
 const getUserIncome = (req, res) => {
-  const userId = parseInt(req.params.id, 10);
+  // const userId = parseInt(req.params.id, 10);
+  const userData = req.params.id;
 
   if (isNaN(userId)) {
     return res.status(400).send("Invalid user ID");
@@ -104,19 +105,20 @@ const getUserIncome = (req, res) => {
 };
 
 const getUserIncomesAndExpenses = async (req, res) => {
-  console.log("Is database set?", models.user.database); // should NOT be null
-
+  const userId = parseInt(req.params.id, 10);
+  const userData = req.params.id;
+  if (isNaN(userId)) {
+    return res.status(400).json({ error: "Invalid user ID" });
+  }
   try {
     const { id } = req.params;
 
     const [expenses] = await models.user.getUserExpensesP(id);
     const [incomes] = await models.user.getUserIncomesP(id);
 
-    res.json({ expenses, incomes });
+    res.json({ userId, expenses, incomes });
   } catch (error) {
     console.error("Error fetching user income and expenses:", error);
-
-    // Send error message back for debugging (remove in production)
     res.status(500).json({ error: error.message || "Internal server error" });
   }
 };

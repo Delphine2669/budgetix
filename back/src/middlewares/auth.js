@@ -36,6 +36,11 @@ const verifyPassword = (req, res) => {
         });
         delete req.user.hashedPassword;
         const message = "Credentials are valid ";
+        console.log("Login response:", {
+          message,
+          token,
+          user: req.user,
+        });
         res.send({ message, token, user: req.user });
       } else {
         res.sendStatus(401);
