@@ -268,7 +268,12 @@ export default function Connected() {
                     {new Date(entry.date).toLocaleDateString()}
                   </td>
                   <td>
-                    <button onClick={() => handleDelete(entry)}>Delete</button>
+                    <button
+                      className="delete-button red-button"
+                      onClick={() => handleDelete(entry)}
+                    >
+                      X
+                    </button>
                   </td>
                 </tr>
               ))}

@@ -145,3 +145,9 @@ label {
     border-width: 2px;
   }
 }
+.page-register-name {
+  color: var(--app-color);
+}
+.toggle-password {
+  background-color: var(--app-color);
+}

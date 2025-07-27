@@ -140,11 +140,11 @@ function Navbar() {
                   Login
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/register" className="register-header-link">
                   Register
                 </Link>
-              </li>
+              </li> */}
             </div>
           )}
         </div>
