@@ -30,7 +30,9 @@ export default function Connected() {
 
       try {
         const res = await fetch(
-          `http://localhost:5000/users/${userId}/incomes-expenses`,
+          `${
+            import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5000"
+          }/users/${userId}/incomes-expenses`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -80,7 +82,9 @@ export default function Connected() {
       return;
     }
 
-    const url = `http://localhost:5000/${formData.type}s/${userId}`;
+    const url = `${
+      import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5000"
+    }/${formData.type}s/${userId}`;
     const body = {
       amount: parseFloat(formData.amount),
       description: formData.description,
@@ -123,7 +127,9 @@ export default function Connected() {
       return;
     }
 
-    const url = `http://localhost:5000/${entry.type}s/${entry.id}`;
+    const url = `${
+      import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5000"
+    }/${entry.type}s/${entry.id}`;
 
     try {
       const res = await fetch(url, {

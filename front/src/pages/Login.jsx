@@ -72,9 +72,9 @@ const Login = ({ setIsAuthenticated }) => {
   return (
     <div>
       <h2>Login</h2>
-      <div>
+      {/* <div>
         <NavLink to="/register">No account yet? Sign up here</NavLink>
-      </div>
+      </div> */}
       <form>
         <div>
           <label>Username:</label>
