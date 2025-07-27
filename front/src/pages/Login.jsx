@@ -73,7 +73,7 @@ const Login = ({ setIsAuthenticated }) => {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2 className="page-login-name">Login</h2>
       {/* <div>
         <NavLink to="/register">No account yet? Sign up here</NavLink>
       </div> */}

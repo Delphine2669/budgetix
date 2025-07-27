@@ -35,8 +35,10 @@ ul {
   }
 }
 @media (prefers-color-scheme: light) {
-  .title {
-    color: #63ab57;
+  .title,
+  .login-header-link,
+  .register-header-link {
+    color: var(--app-color-light);
   }
   .logo-budgetix {
     background-image: url(${logoLight});
