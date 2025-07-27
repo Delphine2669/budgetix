@@ -23,9 +23,11 @@ toastr.options = {
 const Login = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate();
-
+  const handleTogglePasswordVisibility = () => {
+    setPasswordVisible((prevVisible) => !prevVisible);
+  };
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
@@ -48,7 +50,7 @@ const Login = ({ setIsAuthenticated }) => {
           body: JSON.stringify(user),
         }
       );
-      // const data = await res.json();
+
       if (res.ok) {
         const data = await res.json();
         console.log("login date:", data);
@@ -88,11 +90,32 @@ const Login = ({ setIsAuthenticated }) => {
         <div>
           <label>Password:</label>
           <input
-            type="password"
+            type={passwordVisible ? "text" : "password"}
             value={password}
             required
             onChange={handlePasswordChange}
           />
+          <button
+            type="button"
+            className="toggle-password"
+            onClick={handleTogglePasswordVisibility}
+          >
+            {passwordVisible ? (
+              <img
+                src="/assets/hidePassword.png"
+                alt="Hide Password"
+                height="20"
+                width="20"
+              />
+            ) : (
+              <img
+                src="/assets/showPassword.png"
+                alt="Show Password"
+                height="20"
+                width="20"
+              />
+            )}
+          </button>
         </div>
         <button type="button" onClick={handleLogin}>
           Login
