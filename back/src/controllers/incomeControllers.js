@@ -81,10 +81,37 @@ const destroy = (req, res) => {
     });
 };
 
+const postIncome = (req, res) => {
+  const userId = parseInt(req.params.userId, 10);
+  const { amount, description, date } = req.body;
+
+  if (!amount) {
+    res.status(400).json({ error: "Amount is required" });
+    return;
+  }
+
+  models.income
+    .insert({ amount, description, date, user_id: userId })
+    .then(([result]) => {
+      res.status(201).json({
+        id: result.insertId,
+        amount,
+        description,
+        date,
+        user_id: userId,
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   read,
   add,
   edit,
   destroy,
+  postIncome,
 };

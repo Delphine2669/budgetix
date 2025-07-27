@@ -1,8 +1,17 @@
-/* .nav-home-link,
-.nav-login-link {
-  padding: 2dvw;
+.header {
+  display: flex;
+}
+.word-header {
+  display: flex;
+  justify-content: space-around;
+}
+
+.login-header-link,
+.register-header-link {
+  color: var(--app-color);
   font-size: larger;
-} */
+  font-weight: 600;
+}
 
 ul {
   list-style: none;
@@ -14,13 +23,11 @@ ul {
 .logo-budgetix {
   width: 150px;
 }
-.header {
-  display: flex;
-  max-width: 80dvw;
-}
+
 .title {
-  color: #eeefd3;
+  color: var(--app-color);
   margin: auto;
+  justify-content: space-between;
 }
 @media scren and(min-width:600px) {
   .logo-budgetix {

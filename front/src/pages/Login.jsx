@@ -39,7 +39,9 @@ const Login = ({ setIsAuthenticated }) => {
     const user = { username, password };
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001"}/login`,
+        `${
+          import.meta.env.FORMER_VITE_BACKEND_URL ?? "http://localhost:5000"
+        }/login`,
         {
           method: "POST",
           headers: {
@@ -48,10 +50,17 @@ const Login = ({ setIsAuthenticated }) => {
           body: JSON.stringify(user),
         }
       );
+      // const data = await res.json();
       if (res.ok) {
+        const data = await res.json();
+        console.log("login date:", data);
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userId", data.user.id);
+        localStorage.setItem("username", data.user.username);
         toastr.success("Successfully logged in");
         setIsAuthenticated(true);
-        navigate("/");
+        navigate("/account");
+        window.dispatchEvent(new Event("authChanged"));
       } else {
         const errorMessage = await res.text();
         toastr.error(`Failed to login: ${errorMessage}`);

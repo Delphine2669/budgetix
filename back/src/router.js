@@ -27,6 +27,7 @@ router.get("/incomes/:id", incomeControllers.read);
 router.post("/incomes", incomeControllers.add);
 router.put("/incomes/:id", incomeControllers.edit);
 router.delete("/incomes/:id", incomeControllers.destroy);
+router.post("/incomes/:userId", incomeControllers.postIncome);
 
 //* expense routes
 router.get("/expenses", expenseControllers.browse);
@@ -34,12 +35,18 @@ router.get("/expenses/:id", expenseControllers.read);
 router.post("/expenses", expenseControllers.add);
 router.put("/expenses/:id", expenseControllers.edit);
 router.delete("/expenses/:id", expenseControllers.destroy);
-
+router.post("/expences/:userId", expenseControllers.postExpense);
+//* user id-
 router.get("/users/:id/incomes", userControllers.getUserIncome);
+// router.get("/users/:id/expenses", userControllers.getUserExpensesP);
+
+router.get(
+  "/users/:id/incomes-expenses",
+  userControllers.getUserIncomesAndExpenses
+);
 
 //*register and login
 router.post("/users", hashPassword, checkingUser, userControllers.add);
-
 router.post(
   "/login",
   authControllers.getUserByUsernameWithPasswordAndPassToNext,

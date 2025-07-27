@@ -6,37 +6,21 @@ const UserManager = require("./UserManager");
 const IncomeManager = require("./IncomeManager");
 const ExpenseManager = require("./ExpenseManager");
 
-const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
+const {
+  FORMER_DB_HOST,
+  FORMER_DB_PORT,
+  FORMER_DB_USER,
+  FORMER_DB_PASSWORD,
+  FORMER_DB_NAME,
+} = process.env;
 
 const database = mysql.createPool({
-  host: DB_HOST,
-  port: DB_PORT,
-  user: DB_USER,
-  password: DB_PASSWORD,
-  database: DB_NAME,
+  host: FORMER_DB_HOST,
+  port: FORMER_DB_PORT,
+  user: FORMER_DB_USER,
+  password: FORMER_DB_PASSWORD,
+  database: FORMER_DB_NAME,
 });
-
-// const mysql = require("mysql");
-// const connection = mysql.createConnection({
-//   // Get ProxySQL unix domain socket path from the environment
-//   socketPath: process.env["CC_MYSQL_PROXYSQL_SOCKET_PATH"],
-//   // Get the database user from the environment
-//   user: process.env["MYSQL_ADDON_USER"],
-//   // Get the database password from the environment
-//   password: process.env["MYSQL_ADDON_PASSWORD"],
-//   // Get the database name from the environment
-//   database: process.env["MYSQL_ADDON_DB"],
-// });
-// connection.connect(function (err) {
-//   if (err) {
-//     console.error("error connecting: " + err.stack);
-//     return;
-//   }
-
-//   console.log("connected as id " + connection.threadId);
-// });
-
-// try a connection
 
 database.getConnection().catch(() => {
   console.warn(

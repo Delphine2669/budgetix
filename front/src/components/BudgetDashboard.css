@@ -43,14 +43,14 @@
 .balance-container {
   padding: 5dvw;
 }
-.li-transaction {
+.td-transaction {
   display: flex;
   font-size: 2rem;
   justify-content: center;
   padding-bottom: 1dvh;
   height: 12dvh;
 }
-.li-date {
+.td-date {
   padding-right: 2dvw;
 }
 .income-text {
@@ -90,13 +90,16 @@ label {
 .button-submit {
   margin: 2dvw;
 }
-.li-amount,
+.td-amount,
 .income-text,
 .expense-text {
   padding: 3dvw, 3dvh;
 }
+.div-budget-table {
+  margin: auto;
+}
 @media screen and(min-width:600px) {
-  .li-transaction {
+  .td-transaction {
     font-size: 7rem;
   }
 }
@@ -141,4 +144,10 @@ label {
     border-color: black;
     border-width: 2px;
   }
+}
+.page-register-name {
+  color: var(--app-color);
+}
+.toggle-password {
+  background-color: var(--app-color);
 }
