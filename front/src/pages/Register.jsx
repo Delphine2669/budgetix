@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toastr from "toastr";
-import "../components/budgetDashboard.css";
+import "../components/BudgetDashboard.css";
 toastr.options = {
   closeButton: false,
   debug: false,

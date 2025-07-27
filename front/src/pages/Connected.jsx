@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "../App.css";
-import "../components/budgetDashboard.css";
+import "../components/BudgetDashboard.css";
 
 export default function Connected() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
