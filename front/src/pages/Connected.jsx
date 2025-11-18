@@ -67,7 +67,7 @@ export default function Connected() {
     setFormData({
       amount: "",
       description: "",
-      type: "expense",
+      type: "",
       date: "",
     });
     setShowForm(false);
