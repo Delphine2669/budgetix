@@ -25,5 +25,13 @@ class ExpenseManager extends AbstractManager {
       [expense.amount, expense.description, expense.date, expense.id]
     );
   }
+  getExpensesById(expense) {
+    return this.database.query(`SELECT * from ${this.table} WHERE id=?`, [
+      expense.amount,
+      expense.description,
+      expense.date,
+      expense.id,
+    ]);
+  }
 }
 module.exports = ExpenseManager;
