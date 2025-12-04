@@ -39,9 +39,7 @@ const Login = ({ setIsAuthenticated }) => {
     const user = { username, password };
     try {
       const res = await fetch(
-        `${
-          import.meta.env.FORMER_VITE_BACKEND_URL ?? "http://localhost:5000"
-        }/login`,
+        `${import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5000"}/login`,
         {
           method: "POST",
           headers: {

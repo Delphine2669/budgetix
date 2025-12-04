@@ -11,10 +11,10 @@ function Budget({ onAddTransaction }) {
   const [transactions, setTransactions] = useState([]);
   const fetchAndUpdateTransactions = () => {
     const incomesUrl = `${
-      import.meta.env.FORMER_VITE_BACKEND_URL ?? "http://localhost:5000"
+      import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5000"
     }/incomes`;
     const expensesUrl = `${
-      import.meta.env.FORMER_VITE_BACKEND_URL ?? "http://localhost:5000"
+      import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5000"
     }/expenses`;
 
     fetch(incomesUrl)
@@ -77,8 +77,7 @@ function Budget({ onAddTransaction }) {
     setShowForm(false);
     const endpoint = type === "expense" ? "/expenses" : "/incomes";
 
-    const baseUrl =
-      import.meta.env.FORMER_VITE_BACKEND_URL ?? "http://localhost:5001";
+    const baseUrl = import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001";
 
     const postDataUrl = `${baseUrl}${endpoint}`;
     const requestData = {
@@ -124,10 +123,10 @@ function Budget({ onAddTransaction }) {
 
   useEffect(() => {
     const incomesUrl = `${
-      import.meta.env.FORMER_VITE_BACKEND_URL ?? "http://localhost:5001"
+      import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001"
     }/incomes`;
     const expensesUrl = `${
-      import.meta.env.FORMER_VITE_BACKEND_URL ?? "http://localhost:5001"
+      import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001"
     }/expenses`;
 
     fetch(incomesUrl)
@@ -167,8 +166,7 @@ function Budget({ onAddTransaction }) {
   const handleDeleteTransaction = (transactionId, transaction) => {
     const endpoint = transaction.type === "expense" ? "/expenses" : "/incomes";
 
-    const baseUrl =
-      import.meta.env.FORMER_VITE_BACKEND_URL ?? "http://localhost:5001";
+    const baseUrl = import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5001";
 
     const deleteUrl = `${baseUrl}${endpoint}/${transactionId}`;
 

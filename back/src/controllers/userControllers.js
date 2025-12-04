@@ -93,7 +93,6 @@ const getUserIncome = (req, res) => {
       if (rows.length === 0) {
         res.status(404).send("No data found for this user");
       } else {
-        res.json(rows);
         res.status(200).json(rows);
       }
     })
@@ -103,20 +102,19 @@ const getUserIncome = (req, res) => {
     });
 };
 const getUserExpense = (req, res) => {
-  const userData = req.params.id;
-
+  const userId = parseInt(req.params.id, 10);
+  console.log("userId from params:", userId);
   if (isNaN(userId)) {
     return res.status(400).send("Invalid user ID");
   }
 
   models.user
-    .getUserExpense(userId)
+    .getUserExpenses(userId)
 
     .then(([rows]) => {
       if (rows.length === 0) {
         res.status(404).send("No data found for this user");
       } else {
-        res.json(rows);
         res.status(200).json(rows);
       }
     })
@@ -153,4 +151,5 @@ module.exports = {
   destroy,
   getUserIncome,
   getUserIncomesAndExpenses,
+  getUserExpense,
 };

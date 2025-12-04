@@ -78,9 +78,7 @@ export default function Register() {
 
     try {
       const res = await fetch(
-        `${
-          import.meta.env.FORMER_VITE_BACKEND_URL ?? "http://localhost:5000"
-        }/users`,
+        `${import.meta.env.VITE_BACKEND_URL ?? "http://localhost:5000"}/users`,
         {
           method: "POST",
           headers: {

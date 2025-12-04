@@ -6,20 +6,14 @@ const UserManager = require("./UserManager");
 const IncomeManager = require("./IncomeManager");
 const ExpenseManager = require("./ExpenseManager");
 
-const {
-  FORMER_DB_HOST,
-  FORMER_DB_PORT,
-  FORMER_DB_USER,
-  FORMER_DB_PASSWORD,
-  FORMER_DB_NAME,
-} = process.env;
+const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
 
 const database = mysql.createPool({
-  host: FORMER_DB_HOST,
-  port: FORMER_DB_PORT,
-  user: FORMER_DB_USER,
-  password: FORMER_DB_PASSWORD,
-  database: FORMER_DB_NAME,
+  host: DB_HOST,
+  port: DB_PORT,
+  user: DB_USER,
+  password: DB_PASSWORD,
+  database: DB_NAME,
 });
 
 database.getConnection().catch(() => {

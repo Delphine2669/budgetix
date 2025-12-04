@@ -35,10 +35,10 @@ router.get("/expenses/:id", expenseControllers.read);
 router.post("/expenses", expenseControllers.add);
 router.put("/expenses/:id", expenseControllers.edit);
 router.delete("/expenses/:id", expenseControllers.destroy);
-router.post("/expences/:userId", expenseControllers.postExpense);
+router.post("/expenses/:userId", expenseControllers.postExpense);
 //* user id-
 router.get("/users/:id/incomes", userControllers.getUserIncome);
-// router.get("/users/:id/expenses", userControllers.getUserExpensesP);
+router.get("/users/:id/expenses", userControllers.getUserExpense);
 
 router.get(
   "/users/:id/incomes-expenses",
